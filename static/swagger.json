@@ -1,0 +1,1131 @@
+openapi: 3.0.1
+info:
+  title: Anomaly Detection
+  version: 2.3.0
+servers:
+  - url: https://anomdetection.herokuapp.com
+tags:
+  - name: AnomalyDetection
+paths:
+  /naValues/info:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Gives information about a csv.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: The csv file has not any NA value
+          content:
+            application/json:
+              type: object
+        201:
+          description: The csv file has some NA values
+          content:
+            application/json:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+
+  /naValues/rNaNum:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Replace na values in a numeric csv with the method that the user wants.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                columnsNum:
+                  type: string
+                methodNum:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: No columns part in the request
+          content:
+            application/json:
+              type: object
+        406:
+          description: The columns field can not be empty
+          content:
+            application/json:
+              type: object
+        407:
+          description: The column is not in the data
+          content:
+            application/json:
+              type: object
+        408:
+          description: The column in the body request  is not numerical
+          content:
+            application/json:
+              type: object
+        409:
+          description: No method in the request
+          content:
+            application/json:
+              type: object
+        410:
+          description: The method field can not be empty
+          content:
+            application/json:
+              type: object
+        411:
+          description: The method is not available
+          content:
+            application/json:
+              type: object
+        412:
+          description: The method has to be a string
+          content:
+            application/json:
+              type: object
+
+  /naValues/rNaMix:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Replace na values in a mixed dataset
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                columnsNum:
+                  type: string
+                methodNum:
+                  type: string
+                columnsCat:
+                  type: string
+                methodCat:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: No columns part in the request
+          content:
+            application/json:
+              type: object
+        406:
+          description: The columns field can not be empty
+          content:
+            application/json:
+              type: object
+        407:
+          description: The column is not in the data
+          content:
+            application/json:
+              type: object
+        408:
+          description: The column in the body request is not of the suitable type
+          content:
+            application/json:
+              type: object
+        409:
+          description: No method in the request
+          content:
+            application/json:
+              type: object
+        410:
+          description: The method field can not be empty
+          content:
+            application/json:
+              type: object
+        411:
+          description: The method is not available
+          content:
+            application/json:
+              type: object
+        412:
+          description: The numeric method has to be a string
+          content:
+            application/json:
+              type: object
+
+  /naValues/change:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Change the values ?, - and '' for na values
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+
+  /naValues/rNaCat:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Replace na values in a categorical csv with the method that the user wants.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                columnsCat:
+                  type: string
+                methodCat:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: No columns part in the request
+          content:
+            application/json:
+              type: object
+        406:
+          description: The columns field can not be empty
+          content:
+            application/json:
+              type: object
+        407:
+          description: The column is not in the data
+          content:
+            application/json:
+              type: object
+        408:
+          description: The column in the body request  is not categorical
+          content:
+            application/json:
+              type: object
+        409:
+          description: No method in the request
+          content:
+            application/json:
+              type: object
+        410:
+          description: The method field can not be empty
+          content:
+            application/json:
+              type: object
+        411:
+          description: The word to replace NA has to be a string
+          content:
+            application/json:
+              type: object
+
+  /preprocessing/standarize:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Standarize numeric values of the desired columns.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                columnsNum:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: No columns part in the request
+          content:
+            application/json:
+              type: object
+        406:
+          description: The columns field can not be empty
+          content:
+            application/json:
+              type: object
+        408:
+          description: The column in the body request  is not numerical
+          content:
+            application/json:
+              type: object
+        409:
+          description: The column is not in the data
+          content:
+            application/json:
+              type: object
+
+  /preprocessing/dummyEn:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Apply dummy decodings to the desired columns.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                columnsCat:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: No columns part in the request
+          content:
+            application/json:
+              type: object
+        406:
+          description: The columns field can not be empty
+          content:
+            application/json:
+              type: object
+        407:
+          description: The column is not in the data
+          content:
+            application/json:
+              type: object
+        408:
+          description: The column in the body request  is not categorical
+          content:
+            application/json:
+              type: object
+
+  /anomalyDetection/kNN:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using knn
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                neighbors:
+                  type: string
+                method:
+                  type: string
+                algorithm:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with neighbors
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with method
+          content:
+            application/json:
+              type: object
+        408:
+          description: There has been a problem with algorithm
+          content:
+            application/json:
+              type: object
+
+
+  /anomalyDetection/hbos:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using hbos
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                bins:
+                  type: string
+                alpha:
+                  type: string
+                tol:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with bins
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with alpha
+          content:
+            application/json:
+              type: object
+        408:
+          description: There has been a problem with tol
+          content:
+            application/json:
+              type: object
+
+  /anomalyDetection/cof:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using cof
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                neighbors:
+                  type: string
+                method:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with neighbors
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with method
+          content:
+            application/json:
+              type: object
+
+
+
+  /anomalyDetection/lof:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using lof
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                neighbors:
+                  type: string
+                algorithm:
+                  type: string
+                leafSize:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with neighbors
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with leaf size
+          content:
+            application/json:
+              type: object
+        408:
+          description: There has been a problem with algorithm
+          content:
+            application/json:
+              type: object
+
+
+  /anomalyDetection/cblof:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using cblof
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                clusters:
+                  type: string
+                alpha:
+                  type: string
+                beta:
+                  type: string
+                weight:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with clusters
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with alpha
+          content:
+            application/json:
+              type: object
+        408:
+          description: There has been a problem with beta
+          content:
+            application/json:
+              type: object
+        409:
+          description: There has been a problem with weight
+          content:
+            application/json:
+              type: object
+
+
+
+  /anomalyDetection/pca:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using pca
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                whiten:
+                  type: string
+                solver:
+                  type: string
+                weight:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with whiten
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with solver
+          content:
+            application/json:
+              type: object
+        409:
+          description: There has been a problem with weight
+          content:
+            application/json:
+              type: object
+
+
+  /anomalyDetection/sos:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using sos
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                perplexity:
+                  type: string
+                metrics:
+                  type: string
+                eps:
+                  type: string
+
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with perplexity
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with metrics
+          content:
+            application/json:
+              type: object
+        409:
+          description: There has been a problem with eps
+          content:
+            application/json:
+              type: object
+
+
+  /anomalyDetection/ocsvm:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using ocsvm
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                kernel:
+                  type: string
+                nu:
+                  type: string
+                degree:
+                  type: string
+                tol:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with kernel
+          content:
+            application/json:
+              type: object
+        407:
+          description: There has been a problem with nu
+          content:
+            application/json:
+              type: object
+        408:
+          description: There has been a problem with degree
+          content:
+            application/json:
+              type: object
+        410:
+          description: There has been a problem with tol
+          content:
+            application/json:
+              type: object
+
+
+
+  /anomalyDetection/iforest:
+    post:
+      tags:
+        - AnomalyDetection
+      summary: Anomalies are detected in a csv using isolation forest
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                contamination:
+                  type: string
+                bootstrap:
+                  type: string
+                estimators:
+                  type: string
+      responses:
+        201:
+          description: The csv treated
+          content:
+            application/csv:
+              type: object
+        401:
+          description: There is not any file in the request body
+          content:
+            application/json:
+              type: object
+        402:
+          description: The file in request body is empty
+          content:
+            application/json:
+              type: object
+        403:
+          description: The file is not .csv
+          content:
+            application/json:
+              type: object
+        404:
+          description: The file is empty or impossible to read
+          content:
+            application/json:
+              type: object
+        405:
+          description: There has been a problem with contamination
+          content:
+            application/json:
+              type: object
+        406:
+          description: There has been a problem with bootstrap
+          content:
+            application/json:
+              type: object
+        411:
+          description: There has been a problem with estimators
+          content:
+            application/json:
+              type: object
+
+
